@@ -43,6 +43,8 @@ import org.firstinspires.ftc.robotcore.external.hardware.camera.controls.GainCon
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.apriltag.AprilTagDetection;
 import org.firstinspires.ftc.vision.apriltag.AprilTagProcessor;
+import com.qualcomm.robotcore.hardware.VoltageSensor;
+
 
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -87,7 +89,7 @@ import java.util.concurrent.TimeUnit;
  */
 
 @TeleOp(name="AprilTag")
-public class vision extends LinearOpMode
+public class   vision extends LinearOpMode
 {
     // Adjust these numbers to suit your robot.
     final double DESIRED_DISTANCE = 15; //  this is how close the camera should get to the target (inches)
@@ -110,11 +112,24 @@ public class vision extends LinearOpMode
     private AprilTagProcessor aprilTag;              // Used for managing the AprilTag detection process.
     private AprilTagDetection desiredTag = null;     // Used to hold the data for a detected AprilTag
 
+    double getBatteryVoltage() {
+        double result = Double.POSITIVE_INFINITY;
+        for (VoltageSensor sensor : hardwareMap.voltageSensor) {
+            double voltage = sensor.getVoltage();
+            if (voltage > 0) {
+                result = Math.min(result, voltage);
+            }
+        }
+        return result;
+    }
+
     @Override public void runOpMode()
     {
         boolean targetFound     = false;    // Set to true when an AprilTag target is detected
         double  drive           = 0;        // Desired forward power/speed (-1 to +1) +ve is forward
         double  turn            = 0;        // Desired turning power/speed (-1 to +1) +ve is CounterClockwise
+        double batteryVoltage = getBatteryVoltage();
+        double batteryPercentage = (batteryVoltage / 14.8) * 100.0;
 
         // Initialize the Apriltag Detection process
         initAprilTag();
@@ -137,6 +152,8 @@ public class vision extends LinearOpMode
         // Wait for the driver to press Start
         telemetry.addData("Camera preview on/off", "3 dots, Camera Stream");
         telemetry.addData(">", "Touch Play to start OpMode");
+        telemetry.addData("Voltage", "%.2f volts", batteryVoltage);
+        telemetry.addData("Battery Percentage", "%.2f%%", batteryPercentage);
         telemetry.update();
         waitForStart();
 
@@ -210,6 +227,7 @@ public class vision extends LinearOpMode
      * <p>
      * Positive Yaw is counter-clockwise
      */
+
     public void moveRobot(double x, double yaw) {
         // Calculate left and right wheel powers.
         double leftPower    = x - yaw;
