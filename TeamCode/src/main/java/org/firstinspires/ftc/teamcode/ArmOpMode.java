@@ -15,7 +15,7 @@ public class ArmOpMode extends LinearOpMode {
 
     // Adjust these values based on your robot and gearing
     private final int MAX_POSITION = 500; // Maximum encoder count for 90 degrees
-    private final int MIN_POSITION = 0;   // Minimum encoder count for 0 degrees
+    private final int MIN_POSITION = -150;   // Minimum encoder count for 0 degrees
 
     @Override
     public void runOpMode() {
@@ -33,6 +33,8 @@ public class ArmOpMode extends LinearOpMode {
         runtime.reset();
 
         while (opModeIsActive()) {
+          telemetry.addData("ticks: ", motorArm1.getCurrentPosition());
+
             // Gamepad button A for moving the arm up
             if (gamepad1.a && motorArm1.getCurrentPosition() < MAX_POSITION) {
                 moveArmUp();
@@ -45,6 +47,56 @@ public class ArmOpMode extends LinearOpMode {
             else {
                 stopArm();
             }
+            //poz MAX = 500; poz minim -150;
+            if(!gamepad1.a && !gamepad1.y && motorArm1.getCurrentPosition()>0)
+            {
+                motorArm1.setPower(-0.1);
+                motorArm2.setPower(-0.1);
+            }
+            else if(!gamepad1.a && !gamepad1.y && motorArm1.getCurrentPosition()>100)
+            {
+                motorArm1.setPower(-0.2);
+                motorArm2.setPower(-0.2);
+            }
+            else if(!gamepad1.a && !gamepad1.y && motorArm1.getCurrentPosition()>200)
+            {
+                motorArm1.setPower(-0.3);
+                motorArm2.setPower(-0.3);
+            }
+            else if(!gamepad1.a && !gamepad1.y && motorArm1.getCurrentPosition()>2501)
+            {
+                motorArm1.setPower(-0.35);
+                motorArm2.setPower(-0.35);
+            }
+            else if(!gamepad1.a && !gamepad1.y && motorArm1.getCurrentPosition()>300)
+            {
+                motorArm1.setPower(-0.4);
+                motorArm2.setPower(-0.4);
+            }
+            else if(!gamepad1.a && !gamepad1.y && motorArm1.getCurrentPosition()>400)
+            {
+                motorArm1.setPower(0.5);
+                motorArm2.setPower(0.5);
+            }
+
+
+            if(!gamepad1.a && !gamepad1.y && motorArm1.getCurrentPosition()<0)
+            {
+                motorArm1.setPower(0.1);
+                motorArm2.setPower(0.1);
+            }
+            else if(!gamepad1.a && !gamepad1.y && motorArm1.getCurrentPosition()<-100)
+            {
+                motorArm1.setPower(0.2);
+                motorArm2.setPower(0.2);
+            }
+            else if(!gamepad1.a && !gamepad1.y && motorArm1.getCurrentPosition()<-200)
+            {
+                motorArm1.setPower(0.4);
+                motorArm2.setPower(0.4);
+            }
+
+
 
             telemetry.addData("Arm Position", motorArm1.getCurrentPosition());
             telemetry.update();
