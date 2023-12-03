@@ -30,7 +30,7 @@ public class movement extends OpMode {
         double leftStickY = (double)this.gamepad1.left_stick_x;
         double motor2Power = leftStickY + leftStickX;
         double motor1Power = leftStickY - leftStickX;
-        this.motor1.setPower(-motor1Power);
-        this.motor2.setPower(-motor2Power);
+        this.motor1.setPower(-motor1Power/2);
+        this.motor2.setPower(-motor2Power/2);
     }
 }

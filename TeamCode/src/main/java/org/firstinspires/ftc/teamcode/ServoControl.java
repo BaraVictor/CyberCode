@@ -1,51 +1,39 @@
-//
-// Source code recreated from a .class file by IntelliJ IDEA
-// (powered by FernFlower decompiler)
-//
-
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.util.Range;
 
-@TeleOp(
-        name = "SimpleServoControl",
-        group = "TeleOp"
-)
+@TeleOp(name = "ma-ta", group = "TeleOp")
 public class ServoControl extends OpMode {
-    private static final int MIN_DEGREE = 30;
-    private static final int MAX_DEGREE = 180;
-    private static final int DEGREE_INCREMENT = 30;
-    private static final double[] SERVO_POSITIONS = new double[]{degreesToPosition(30), degreesToPosition(60), degreesToPosition(90), degreesToPosition(120), degreesToPosition(150), degreesToPosition(180)};
-    private Servo servo;
+    private Servo demoServo2;
+    private static final double MAX_POSITION_SERVO_WRIST = 1.3;
+    private static final double MIN_POSITION_SERVO_WRIST = 0.0;
 
-    public ServoControl() {
-    }
-
-    private static double degreesToPosition(int degrees) {
-        return (double)(degrees - 30) / 150.0;
-    }
-
+    @Override
     public void init() {
-        this.servo = (Servo)this.hardwareMap.servo.get("servo1");
+        demoServo2 = hardwareMap.servo.get("servo2");
+        demoServo2.setPosition(MAX_POSITION_SERVO_WRIST);
     }
 
+    @Override
     public void loop() {
-        double targetPosition;
-        if (this.gamepad1.a) {
-            targetPosition = 0.6;
-            this.servo.setPosition(targetPosition);
-            this.telemetry.addData("Servo Position", this.servo.getPosition());
-            this.telemetry.update();
+        // Check if RT (Right Trigger) is pressed to set the servo to max position
+        demoServo2.setPosition(-1);
+        // Check if LT (Left Trigger) is pressed to set the servo to min position
+        if (gamepad1.left_trigger>0.1) {
+            demoServo2.setPosition(1);
         }
 
-        if (this.gamepad1.b) {
-            targetPosition = -0.6;
-            this.servo.setPosition(targetPosition);
-            this.telemetry.addData("Servo Position", this.servo.getPosition());
-            this.telemetry.update();
-        }
+        // Add any additional logic here...
 
+        telemetry.addData("RT Pressed", gamepad1.right_trigger > 0.1);
+        telemetry.addData("LT Pressed", gamepad1.left_trigger > 0.1);
+        telemetry.addData("Servo Position", demoServo2.getPosition());
+        telemetry.update();
     }
 }
