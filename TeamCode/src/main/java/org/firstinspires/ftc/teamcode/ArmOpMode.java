@@ -3,13 +3,27 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp(name = "ArmControlOpMode", group = "TeleOp")
 public class ArmOpMode extends LinearOpMode {
 
     private DcMotor motorArm1;
     private DcMotor motorArm2;
+    DcMotor motor2;
+    DcMotor motor1;
+
+    private Servo demoServo;
+    private static final double MAX_POSITION_SERVO = 0.4;
+    private static final double MIN_POSITION_SERVO = 0.0;
+
+    private Servo demoServo2;
+    private static final double MAX_POSITION_SERVO_WRIST = 1;
+    private static final double MIN_POSITION_SERVO_WRIST = -0.5;
+
 
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -19,8 +33,16 @@ public class ArmOpMode extends LinearOpMode {
 
     @Override
     public void runOpMode() {
+
+        demoServo = hardwareMap.servo.get("servo1");
+        demoServo.setPosition(MAX_POSITION_SERVO);
+        demoServo2 = hardwareMap.servo.get("servo2");
+        demoServo2.setPosition(MAX_POSITION_SERVO_WRIST);
+
         motorArm1 = hardwareMap.get(DcMotor.class, "motor_arm1");
         motorArm2 = hardwareMap.get(DcMotor.class, "motor_arm2");
+        motor1 = (DcMotor)this.hardwareMap.dcMotor.get("motor1");
+        motor2 = (DcMotor)this.hardwareMap.dcMotor.get("motor2");
 
         // Reverse one of the motors if needed
         motorArm2.setDirection(DcMotor.Direction.REVERSE);
@@ -32,8 +54,40 @@ public class ArmOpMode extends LinearOpMode {
         waitForStart();
         runtime.reset();
 
+
+
         while (opModeIsActive()) {
           telemetry.addData("ticks: ", motorArm1.getCurrentPosition());
+            double leftStickX = (double)this.gamepad1.left_stick_y;
+            double leftStickY = (double)this.gamepad1.left_stick_x;
+            double motor2Power = leftStickY + leftStickX;
+            double motor1Power = leftStickY - leftStickX;
+            motor1.setPower(-motor1Power/2);
+            motor2.setPower(-motor2Power/2);
+
+            if (gamepad1.right_trigger > 0.1) {
+                if (demoServo.getPosition() < MAX_POSITION_SERVO) {
+                    demoServo.setPosition(demoServo.getPosition() + 0.02);
+                }
+            }
+            // Check if LT (Left Trigger) is pressed to set the servo to min position
+            else if (gamepad1.left_trigger > 0.1) {
+                if (demoServo.getPosition() > MIN_POSITION_SERVO) {
+                    demoServo.setPosition(demoServo.getPosition() - 0.02 );
+                }
+            }
+
+            if (gamepad1.dpad_up) {
+                if (demoServo2.getPosition() < MAX_POSITION_SERVO_WRIST) {
+                    demoServo2.setPosition(demoServo2.getPosition() + 0.02);
+                }
+            }
+            // Check if LT (Left Trigger) is pressed to set the servo to min position
+            else if (gamepad1.dpad_down) {
+                if (demoServo2.getPosition() > MIN_POSITION_SERVO_WRIST) {
+                    demoServo2.setPosition(demoServo2.getPosition() - 0.02);
+                }
+            }
 
             // Gamepad button A for moving the arm up
             if (gamepad1.a && motorArm1.getCurrentPosition() < MAX_POSITION) {
@@ -75,8 +129,8 @@ public class ArmOpMode extends LinearOpMode {
             }
             else if(!gamepad1.a && !gamepad1.y && motorArm1.getCurrentPosition()>400)
             {
-                motorArm1.setPower(0.5);
-                motorArm2.setPower(0.5);
+                motorArm1.setPower(-0.5);
+                motorArm2.setPower(-0.5);
             }
 
 
@@ -99,6 +153,10 @@ public class ArmOpMode extends LinearOpMode {
 
 
             telemetry.addData("Arm Position", motorArm1.getCurrentPosition());
+            telemetry.addData("RT Pressed", gamepad1.right_trigger > 0.1);
+            telemetry.addData("LT Pressed", gamepad1.left_trigger > 0.1);
+            telemetry.addData("Servo Position", demoServo.getPosition());
+            telemetry.addData("Servo Position", demoServo2.getPosition());
             telemetry.update();
         }
     }
