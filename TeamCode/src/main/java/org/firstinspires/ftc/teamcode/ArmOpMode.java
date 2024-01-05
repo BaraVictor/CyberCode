@@ -17,12 +17,17 @@ public class ArmOpMode extends LinearOpMode {
     DcMotor motor1;
 
     private Servo demoServo;
+
     private Servo demoServoRight;
     private Servo demoServoLeft;
     private static final double MAX_POSITION_SERVO_WRITE = 0.4;
     private static final double MIN_POSITION_SERVO_WRITE = 0;
     private static final double MAX_POSITION_SERVO_LEFT = 0;
     private static final double MIN_POSITION_SERVO_LEFT = 0.4;
+
+    private static final double MAX_POSITION_SERVO = 0.4;
+    private static final double MIN_POSITION_SERVO = 0.0;
+
 
     private Servo demoServo2;
     private static final double MAX_POSITION_SERVO_WRIST = 1;
@@ -31,19 +36,35 @@ public class ArmOpMode extends LinearOpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
 
-    // Adjust these values based on your robot and gearing
+    // Adjust these values based on your robot and gearin
     private final int MAX_POSITION = 0;
     private final int MIN_POSITION = -1000;
     @Override
     public void runOpMode() {
 
+
+    private final int MAX_POSITION = 500; // Maximum encoder count for 90 degrees
+    private final int MIN_POSITION = -150;   // Minimum encoder count for 0 degrees
+
+    @Override
+    public void runOpMode() {
+
+        demoServo = hardwareMap.servo.get("servo1");
+        demoServo.setPosition(MAX_POSITION_SERVO);
+        demoServo2 = hardwareMap.servo.get("servo2");
+        demoServo2.setPosition(MAX_POSITION_SERVO_WRIST);
+
+
         motorArm1 = hardwareMap.get(DcMotor.class, "motor_arm1");
         motorArm2 = hardwareMap.get(DcMotor.class, "motor_arm2");
         motor1 = (DcMotor)this.hardwareMap.dcMotor.get("motor1");
         motor2 = (DcMotor)this.hardwareMap.dcMotor.get("motor2");
+
         demoServo = hardwareMap.servo.get("servo");
         demoServoRight = hardwareMap.servo.get("servo2");
         demoServoLeft = hardwareMap.servo.get("servo3");
+
+
 
         // Reverse one of the motors if needed
         motorArm2.setDirection(DcMotor.Direction.REVERSE);
@@ -58,13 +79,20 @@ public class ArmOpMode extends LinearOpMode {
 
 
         while (opModeIsActive()) {
+
             telemetry.addData("ticks: ", motorArm1.getCurrentPosition());
             double leftStickX = (double)this.gamepad2.left_stick_y;
             double leftStickY = (double)this.gamepad2.left_stick_x;
+
+          telemetry.addData("ticks: ", motorArm1.getCurrentPosition());
+            double leftStickX = (double)this.gamepad1.left_stick_y;
+            double leftStickY = (double)this.gamepad1.left_stick_x;
+
             double motor2Power = leftStickY + leftStickX;
             double motor1Power = leftStickY - leftStickX;
             motor1.setPower(-motor1Power/2);
             motor2.setPower(-motor2Power/2);
+
 
 //            if (gamepad1.right_trigger > 0.1) {
 //                if (demoServo.getPosition() < MAX_POSITION_SERVO) {
@@ -166,6 +194,32 @@ public class ArmOpMode extends LinearOpMode {
                 // Add a short delay to avoid busy-waiting and allow the loop to execute periodically
                 sleep(50);
             }
+
+            if (gamepad1.right_trigger > 0.1) {
+                if (demoServo.getPosition() < MAX_POSITION_SERVO) {
+                    demoServo.setPosition(demoServo.getPosition() + 0.02);
+                }
+            }
+            // Check if LT (Left Trigger) is pressed to set the servo to min position
+            else if (gamepad1.left_trigger > 0.1) {
+                if (demoServo.getPosition() > MIN_POSITION_SERVO) {
+                    demoServo.setPosition(demoServo.getPosition() - 0.02 );
+                }
+            }
+
+            if (gamepad1.dpad_up) {
+                if (demoServo2.getPosition() < MAX_POSITION_SERVO_WRIST) {
+                    demoServo2.setPosition(demoServo2.getPosition() + 0.02);
+                }
+            }
+            // Check if LT (Left Trigger) is pressed to set the servo to min position
+            else if (gamepad1.dpad_down) {
+                if (demoServo2.getPosition() > MIN_POSITION_SERVO_WRIST) {
+                    demoServo2.setPosition(demoServo2.getPosition() - 0.02);
+                }
+            }
+
+
             // Gamepad button A for moving the arm up
             if (gamepad1.left_stick_y > 0 && motorArm1.getCurrentPosition() < MAX_POSITION) {
                 motorArm1.setPower(1); // Adjust power based on your needs
@@ -181,12 +235,70 @@ public class ArmOpMode extends LinearOpMode {
                 motorArm1.setPower(0);
                 motorArm2.setPower(0);
             }
+
+
+            //poz MAX = 500; poz minim -150;
+            if(!gamepad1.a && !gamepad1.y && motorArm1.getCurrentPosition()>0)
+            {
+                motorArm1.setPower(-0.1);
+                motorArm2.setPower(-0.1);
+            }
+            else if(!gamepad1.a && !gamepad1.y && motorArm1.getCurrentPosition()>100)
+            {
+                motorArm1.setPower(-0.2);
+                motorArm2.setPower(-0.2);
+            }
+            else if(!gamepad1.a && !gamepad1.y && motorArm1.getCurrentPosition()>200)
+            {
+                motorArm1.setPower(-0.3);
+                motorArm2.setPower(-0.3);
+            }
+            else if(!gamepad1.a && !gamepad1.y && motorArm1.getCurrentPosition()>2501)
+            {
+                motorArm1.setPower(-0.35);
+                motorArm2.setPower(-0.35);
+            }
+            else if(!gamepad1.a && !gamepad1.y && motorArm1.getCurrentPosition()>300)
+            {
+                motorArm1.setPower(-0.4);
+                motorArm2.setPower(-0.4);
+            }
+            else if(!gamepad1.a && !gamepad1.y && motorArm1.getCurrentPosition()>400)
+            {
+                motorArm1.setPower(-0.5);
+                motorArm2.setPower(-0.5);
+            }
+
+
+            if(!gamepad1.a && !gamepad1.y && motorArm1.getCurrentPosition()<0)
+            {
+                motorArm1.setPower(0.1);
+                motorArm2.setPower(0.1);
+            }
+            else if(!gamepad1.a && !gamepad1.y && motorArm1.getCurrentPosition()<-100)
+            {
+                motorArm1.setPower(0.2);
+                motorArm2.setPower(0.2);
+            }
+            else if(!gamepad1.a && !gamepad1.y && motorArm1.getCurrentPosition()<-200)
+            {
+                motorArm1.setPower(0.4);
+                motorArm2.setPower(0.4);
+            }
+
+
+
+
             telemetry.addData("Arm Position", motorArm1.getCurrentPosition());
             telemetry.addData("RT Pressed", gamepad1.right_trigger > 0.1);
             telemetry.addData("LT Pressed", gamepad1.left_trigger > 0.1);
             telemetry.addData("Servo Position", demoServo.getPosition());
+
             telemetry.addData("Right Servo Position", demoServoRight.getPosition());
             telemetry.addData("Left Servo Position", demoServoLeft.getPosition());
+
+            telemetry.addData("Servo Position", demoServo2.getPosition());
+
             telemetry.update();
         }
     }
