@@ -20,15 +20,15 @@ public class RedTeamProp extends OpenCvPipeline {
     }
     private Location location;
     static final Rect LEFT_ROI = new Rect(
-            new Point(0,110),
-            new Point(50,220));
+            new Point(0,225),
+            new Point(50,325));
     static final Rect RIGHT_ROI = new Rect(
-            new Point(640, 120),
-            new Point(560, 260));
+            new Point(640, 200),
+            new Point(580, 310));
     static final Rect MID_ROI = new Rect(
-            new Point(255, 85),
-            new Point(355, 185));
-    static double PERCENT_COLOR_THRESHOLD = 0.2;
+            new Point(255, 185),
+            new Point(355, 285));
+    static double PERCENT_COLOR_THRESHOLD = 0.45;
 
     public RedTeamProp(Telemetry t) { telemetry = t; }
 

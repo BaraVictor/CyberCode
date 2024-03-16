@@ -48,10 +48,10 @@ public class AutoRedLong extends LinearOpMode {
     private Servo demoServo;
     private Servo demoServoRight;
     private Servo demoServoLeft;
-    double open1 = 0.71;
-    double closed1 = 0.91;
-    double open2 = 0.75;
-    double closed2 = 0.51;
+    double open1 = 0.51;
+    double closed1 = 0.86 ;
+    double open2 = 0.95;
+    double closed2 = 0.54;
 
     double a = 0.66;
     double b = 1.0;
@@ -143,6 +143,7 @@ public class AutoRedLong extends LinearOpMode {
         telemetry.update();
         Pas2(); //Merge in fata 64 de centimetri
         // Metoda orifinala (17 sec)
+        camera.stopStreaming();
         Pas3(); //Da obiectul din cale si se roteste(pt a aseza pixelul)
         Pas4(); //Lasal bratul jos(a) si lasa pixelul jos
         Pas5(); //Ridica bratul in poz de b
@@ -167,7 +168,6 @@ public class AutoRedLong extends LinearOpMode {
         Pas15();//Se roteste 90 pt a se parca cu spatele
         Pas16();//Merge cu spatele si se parcheza
         Pas17();//Lasa Bratul jos si ghiara in poz a
-        camera.stopStreaming();
     }
     private void resetAngle()
     {
@@ -287,7 +287,7 @@ public class AutoRedLong extends LinearOpMode {
             telemetry.update();
         }
     }
-    public void setAllPower(double p ){setMotorPower(p,p);}
+    public void setAllPower(double p ){setMotorPower (p,p);}
     private void Pas1 () { //mergi in fata pana la spike
         target=-20;
         LeftArmMotor.setTargetPosition(target);
@@ -301,16 +301,21 @@ public class AutoRedLong extends LinearOpMode {
     }
 
     private void Pas2 (){
-        Forward(64);
-        if(caz==3){
-            Forward(15);
-            demoServo.setPosition(1.0);
+        if(caz==2){
+            Forward(59);
+        }
+        else{
+            Forward(64);
+            demoServo.setPosition(0.8);
+            if(caz==3){
+                Forward(15);
+            }
         }
     }
 
     private void Pas3 () { //roteste pt caz
         if(caz==3){
-            turnRight(81);
+            turnRight(77);
             demoServo.setPosition(a);
             Backward(55);
         }
@@ -319,7 +324,7 @@ public class AutoRedLong extends LinearOpMode {
             Stop();
         }
         else if(caz==1){
-            turnRight(89);
+            turnRight(91);
             Backward(10);
             Stop();
         }
@@ -375,7 +380,7 @@ public class AutoRedLong extends LinearOpMode {
 
     private void Pas6 () {   //roteste sasiul sa fie cu spatele la tabla
         if(caz==2){
-            turnRight(93);
+            turnRight(91);
         }
     }
 
@@ -390,6 +395,7 @@ public class AutoRedLong extends LinearOpMode {
             RightArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             MaxStop();
             demoServo.setPosition(1.0);
+            Stop();
             Backward(8);
         }
         if(caz==2){
@@ -402,6 +408,7 @@ public class AutoRedLong extends LinearOpMode {
             RightArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             Stop();
             demoServo.setPosition(1.0);
+            Stop();
             Backward(49);
         }
         if(caz==1){
@@ -414,6 +421,7 @@ public class AutoRedLong extends LinearOpMode {
             RightArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             Stop();
             demoServo.setPosition(1.0);
+            Stop();
             Backward(49);
         }
     }
@@ -462,15 +470,15 @@ public class AutoRedLong extends LinearOpMode {
     }
 
     private void Pas8 () {  //rotire paralel cu tabla >.<
-        if(caz==1) {
-            turnLeft(90);
-        }
+//        if(caz==1) {
+//            turnLeft(90);
+//        }
     }
 
     private void Pas9 () {  //aliniere caz tabla
-        if(caz==1){
-            Forward(18);
-        }
+//        if(caz==1){
+//            Forward(18);
+//        }
 
     }
 
@@ -481,9 +489,9 @@ public class AutoRedLong extends LinearOpMode {
         if (caz==2){
             setAllPower(0);
         }
-        if(caz==1) {
-            turnRight(90);
-        }
+//        if(caz==1) {
+//            turnRight(90);
+//        }
         Close();
     }
 
@@ -526,7 +534,7 @@ public class AutoRedLong extends LinearOpMode {
 
     private void Pas15 () { //se sa se aliniaze cu parcarea
         if(caz==2){
-            turnRight(93);
+            turnRight(82);
         }
         else {
             turnRight(90);

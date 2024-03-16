@@ -48,10 +48,10 @@ public class ABLMov extends LinearOpMode {
     private Servo demoServo;
     private Servo demoServoRight;
     private Servo demoServoLeft;
-    double open1 = 0.71;
-    double closed1 = 0.91;
-    double open2 = 0.75;
-    double closed2 = 0.51;
+    double open1 = 0.51;
+    double closed1 = 0.86 ;
+    double open2 = 0.95;
+    double closed2 = 0.54;
 
     double a = 0.66;
     double b = 1.0;
@@ -426,7 +426,7 @@ public class ABLMov extends LinearOpMode {
     }
 
     private void Pas9 () {  //aliniere caz tabla
-            Backward(100);
+            Backward(110);
     }
 
     private void Pas10 () {  //rotire perpendicular cu tabla >.<
@@ -503,7 +503,8 @@ public class ABLMov extends LinearOpMode {
         sleep(250);
         Stop();
         Open();
-        Backward(10);
+        demoServo.setPosition(b);
+        sleep(250);
     }
 
     private void BratPozX () { //se duce cu bratul la poz x si lasa pixelul

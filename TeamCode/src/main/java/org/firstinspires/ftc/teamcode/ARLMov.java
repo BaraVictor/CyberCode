@@ -48,10 +48,10 @@ public class ARLMov extends LinearOpMode {
     private Servo demoServo;
     private Servo demoServoRight;
     private Servo demoServoLeft;
-    double open1 = 0.71;
-    double closed1 = 0.91;
-    double open2 = 0.75;
-    double closed2 = 0.51;
+    double open1 = 0.51;
+    double closed1 = 0.86 ;
+    double open2 = 0.95;
+    double closed2 = 0.54;
 
     double a = 0.66;
     double b = 1.0;
@@ -140,6 +140,7 @@ public class ARLMov extends LinearOpMode {
                 break;
             }
         }
+        camera.stopStreaming();
         Pas2(); //Merge in fata 64 de centimetri
         // Metoda orifinala (17 sec)
         Pas3(); //Da obiectul din cale si se roteste(pt a aseza pixelul)
@@ -167,7 +168,6 @@ public class ARLMov extends LinearOpMode {
         Pas16();//Merge cu spatele si se parcheza
         */
         Pas17();//Lasa Bratul jos si ghiara in poz a
-        camera.stopStreaming();
     }
     private void resetAngle()
     {
@@ -306,7 +306,7 @@ public class ARLMov extends LinearOpMode {
 
     private void Pas3 () { //roteste pt caz
         if(caz==1){
-            turnRight(60);
+            turnRight(40);
         }
         else if(caz==2){
             Forward(20);
@@ -369,12 +369,12 @@ public class ARLMov extends LinearOpMode {
             turnLeft(90);
         }
         if(caz==3){
-            turnRight(90);
+            turnRight(87);
         }
     }
 
     private void Pas7 () {   //se duce in spate pana la poz x
-        Backward(53);
+        Backward(49);
     }
 
     private void Pas7PLUS () {   //se duce in spate pana la poz x
@@ -421,11 +421,16 @@ public class ARLMov extends LinearOpMode {
     }
 
     private void Pas8 () {  //rotire paralel cu tabla >.<
-        turnRight(90);
+        if(caz==3 || caz==2){
+            turnRight(87);
+        }
+        else{
+            turnRight(84);
+        }
     }
 
     private void Pas9 () {  //aliniere caz tabla
-        Backward(100);
+        Backward(115);
     }
 
     private void Pas10 () {  //rotire perpendicular cu tabla >.<
@@ -499,6 +504,11 @@ public class ARLMov extends LinearOpMode {
         LeftArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         RightArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         demoServo.setPosition(a);//
+        MaxStop();
+        Open();
+        Stop();
+        demoServo.setPosition(b);
+        Stop();
     }
 
     private void BratPozX () { //se duce cu bratul la poz x si lasa pixelul

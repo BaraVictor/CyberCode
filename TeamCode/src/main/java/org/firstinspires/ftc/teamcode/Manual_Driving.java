@@ -46,10 +46,10 @@ public class Manual_Driving extends LinearOpMode {
     private static final double MAX_POSITION_SERVO = 0.4;
     private static final double MIN_POSITION_SERVO = 0.0;
 
-    double open1 = 0.71;
-    double closed1 = 0.91;
-    double open2 = 0.75;
-    double closed2 = 0.51;
+    double open1 = 0.51;
+    double closed1 = 0.86 ;
+    double open2 = 0.95;
+    double closed2 = 0.54;
 
     private PIDController controller;
     boolean usingPid = false;
@@ -66,7 +66,7 @@ public class Manual_Driving extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
 
     // Adjust these values based on your robot and gearin
-    boolean isUp = false;
+    boolean c3 = false;
 
     @Override
     public void runOpMode() {
@@ -110,10 +110,10 @@ public class Manual_Driving extends LinearOpMode {
             telemetry.addData("encoderLeft",LeftMotor.getCurrentPosition());
             telemetry.addData("encoderRight",RightMotor.getCurrentPosition());
             telemetry.addData("encoderRight2",cpoz);
-            double leftStickX = (double) this.gamepad2.left_stick_y;
-            double leftStickY = (double) this.gamepad2.right_stick_x;
-            double RightMotorPower = leftStickY + leftStickX;
-            double LeftMotorPower = leftStickY - leftStickX;
+                double leftStickX = (double) this.gamepad2.left_stick_y;
+                double leftStickY = (double) this.gamepad2.right_stick_x;
+                double RightMotorPower = leftStickY + leftStickX;
+                double LeftMotorPower = leftStickY - leftStickX;
             if (gamepad2.right_trigger > 0.1) {
                 schimbator = 1;
                 gamepad2.rumble(1000);
@@ -152,7 +152,7 @@ public class Manual_Driving extends LinearOpMode {
             this.RightMotor.setPower(-RightMotorPower * schimbator);
 
             controller.setPID(p, i, d);
-            int armPos = LeftArmMotor.getCurrentPosition();
+            int armPos = (LeftArmMotor.getCurrentPosition()+RightArmMotor.getCurrentPosition())/2;
             double pid = controller.calculate(armPos, target);
             double ff = Math.cos(Math.toRadians(target / ticks_in_degree)) * f;
             double power = pid + ff;
@@ -239,6 +239,30 @@ public class Manual_Driving extends LinearOpMode {
                     demoServo.setPosition(0.4);
                 }
             }
+            if(gamepad2.y) {
+                target = -450;
+                demoServo.setPosition(1.0);
+            }
+            if(gamepad2.a) {
+                target = -400;
+                demoServo.setPosition(1.0);
+            }
+            if(gamepad2.x) {
+                target = -150;
+                demoServo.setPosition(1.0);
+            }
+            if(gamepad2.b) {
+                target = -75;
+                demoServo.setPosition(1.0);
+            }
+            if(gamepad2.right_stick_button) {
+                target = -350;
+                demoServo.setPosition(1.0);
+            }
+            if(gamepad2.left_stick_button) {
+                target = 0;
+                demoServo.setPosition(1.0);
+            }
             //drone
             if (gamepad1.left_stick_button) { //  gamepad1.getButton(Gamepad.Keys.LEC)
                 planeServo.setPosition(1);
@@ -272,12 +296,12 @@ public class Manual_Driving extends LinearOpMode {
                     demoServo.setPosition(demoServo.getPosition() + 0.005);
                 }
             }
-            // Check if LT (Left Trigger) is pressed to set the servo to min position
             else if (gamepad1.right_stick_y > 0) {
                 if (demoServo.getPosition() > 0) {
                     demoServo.setPosition(demoServo.getPosition() - 0.005);
                 }
             }
+
             telemetry.addData("Arm Position", LeftArmMotor.getCurrentPosition());
             telemetry.addData("RT Pressed", gamepad1.right_trigger > 0.1);
             telemetry.addData("LT Pressed", gamepad1.left_trigger > 0.1);

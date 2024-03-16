@@ -11,7 +11,7 @@ import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvInternalCamera;
 
-@Autonomous(name="TeamPropAuto", group="C")
+@Autonomous(name="TeamPropAuto", group="E")
 public class TeamPropAuto extends LinearOpMode {
     OpenCvCamera camera;
     @Override

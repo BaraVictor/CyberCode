@@ -20,15 +20,15 @@ public class BlueTeamProp extends OpenCvPipeline {
     }
     private Location location;
     static final Rect LEFT_ROI = new Rect(
-            new Point(0,150),
-            new Point(50,250));
+            new Point(0,225),
+            new Point(50,325));
     static final Rect RIGHT_ROI = new Rect(
-            new Point(640, 150),
-            new Point(560, 260));
+            new Point(640, 200),
+            new Point(580, 310));
     static final Rect MID_ROI = new Rect(
-            new Point(255, 85),
-            new Point(355, 185));
-    static double PERCENT_COLOR_THRESHOLD = 0.2;
+            new Point(255, 185),
+            new Point(355, 285));
+    static double PERCENT_COLOR_THRESHOLD = 0.45;
 
     public BlueTeamProp(Telemetry t) { telemetry = t; }
 
@@ -54,8 +54,10 @@ public class BlueTeamProp extends OpenCvPipeline {
 
         telemetry.addData("Left raw value", (int) Core.sumElems(left).val[0]);
         telemetry.addData("Right raw value", (int) Core.sumElems(right).val[0]);
+        telemetry.addData("Mid raw value", (int) Core.sumElems(mid).val[0]);
         telemetry.addData("Left percentage", Math.round(leftValue * 100) + "%");
         telemetry.addData("Right percentage", Math.round(rightValue * 100) + "%");
+        telemetry.addData("Mid percentage", Math.round(midValue * 100) + "%");
 
         boolean stoneLeft = leftValue > PERCENT_COLOR_THRESHOLD;
         boolean stoneRight = rightValue > PERCENT_COLOR_THRESHOLD;
