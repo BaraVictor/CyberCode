@@ -122,7 +122,7 @@ public class AutoRedShort extends LinearOpMode {
 
         waitForStart();
         Pas0();
-        MaxStop();
+        BigStop();
         switch (detector.getLocation()) {
             case LEFT:
                 telemetry.addLine("stanga");
@@ -159,6 +159,8 @@ public class AutoRedShort extends LinearOpMode {
 //        Pas15();
 //        Pas16();
 //        Pas17();
+        Stop();
+        Backward(10);
         Pas18();
     }
     private void resetAngle()
@@ -302,7 +304,7 @@ public class AutoRedShort extends LinearOpMode {
             turnLeft(60);
         }
         else if(caz==2){
-            Forward(20);
+            Forward(17);
             Stop();
             Backward(10);
         }
@@ -312,146 +314,157 @@ public class AutoRedShort extends LinearOpMode {
     }
 
     private void Pas3(){
-        if (caz==2 || caz==3) {
             demoServoRight.setPosition(open1);
             sleep(100);
             Stop();
             demoServo.setPosition(1.0);
-        }
-        if(caz==1){
-            demoServoRight.setPosition(open1);
-            sleep(100);
-            Stop();
-            demoServo.setPosition(1.0);
-        }
     }
 
     private void Pas4(){
         if(caz==3){
-            turnRight(90);
+            turnRight(92);
         }
         else if(caz==2){
-            turnRight(87);
-            Forward(21);
-            turnLeft(92);
+            turnRight(85);
+            Forward(20);
+            turnLeft(93);
         }
         else if(caz==1){
-            turnLeft(90);
+            turnLeft(93);
         }
     }
 
     private void Pas5(){
-            Forward(61);
+        if(caz==2)
+        {
+            Forward(67);
+        }
+        else{
+            Forward(62);
+        }
     }
 
     private void Pas6(){
         if(caz==1){
-            turnRight(90);
+            turnLeft(104);
         }
         if(caz==2){
-            turnRight(89);
+            turnLeft(93);
         }
         if(caz==3){
-            turnRight(94);
+            turnLeft(92);
         }
     }
 
     private void Pas7(){
-        if(caz==3){
-            Backward(172);
-        }
         if(caz==2){
-            Backward(195);
+            Forward(195);
         }
-        if(caz==1){
-            Backward(160);
+        else{
+            Forward(172);
         }
     }
 
     private void Pas8(){
-        turnLeft(90);
+        if(caz==1){
+            turnLeft(90);
+        }
+        if(caz==2){
+            turnLeft(92);
+        }
+        if(caz==3){
+            turnLeft(91);
+        }
     }
 
     private void Pas9(){
         if(caz==1){
-            target=-700;
-            LeftArmMotor.setTargetPosition(target);
-            RightArmMotor.setTargetPosition(target);
-            LeftArmMotor.setPower(1.0);
-            RightArmMotor.setPower(1.0);
-            LeftArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            RightArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            MaxStop();
-            demoServo.setPosition(x);
-            Backward(25);
+//            target=-700;
+//            LeftArmMotor.setTargetPosition(target);
+//            RightArmMotor.setTargetPosition(target);
+//            LeftArmMotor.setPower(1.0);
+//            RightArmMotor.setPower(1.0);
+//            LeftArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//            RightArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//            MaxStop();
+//            demoServo.setPosition(x);
+            Forward(32);
         }
         if(caz==2){
-            target=-700;
-            LeftArmMotor.setTargetPosition(target);
-            RightArmMotor.setTargetPosition(target);
-            LeftArmMotor.setPower(1.0);
-            RightArmMotor.setPower(1.0);
-            LeftArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            RightArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            Stop();
-            demoServo.setPosition(x);
-            Backward(40);
+//            target=-700;
+//            LeftArmMotor.setTargetPosition(target);
+//            RightArmMotor.setTargetPosition(target);
+//            LeftArmMotor.setPower(1.0);
+//            RightArmMotor.setPower(1.0);
+//            LeftArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//            RightArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//            Stop();
+//            demoServo.setPosition(x);
+            Forward(42);
         }
         if(caz==3){
-            target=-700;
-            LeftArmMotor.setTargetPosition(target);
-            RightArmMotor.setTargetPosition(target);
-            LeftArmMotor.setPower(1.0);
-            RightArmMotor.setPower(1.0);
-            LeftArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            RightArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            Stop();
-            demoServo.setPosition(x);
-            Backward(50);
+//            target=-700;
+//            LeftArmMotor.setTargetPosition(target);
+//            RightArmMotor.setTargetPosition(target);
+//            LeftArmMotor.setPower(1.0);
+//            RightArmMotor.setPower(1.0);
+//            LeftArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//            RightArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//            Stop();
+//            demoServo.setPosition(x);
+            Forward(58);
         }
     }
 
     private void Pas10(){
         if(caz==1) {
-            turnRight(92);
+            turnLeft(101);
         }
         if(caz==2){
-            turnRight(90);
+            turnLeft(102);
         }
         if(caz==3){
-            turnRight(87);
+            turnLeft(89);
         }
     }
 
     private void Pas11(){
-        if(caz==2){
-            Backward(32);
-            Stop();
-        }
-        else{
-            Backward(37);
-            Stop();
-        }
-    }
-
-    private void Pas12(){
-        Open();
-        Stop();
-    }
-
-    private void Pas13(){
-        Forward(8);
-        Stop();
-        target=0;
+        target=-670;
         LeftArmMotor.setTargetPosition(target);
         RightArmMotor.setTargetPosition(target);
         LeftArmMotor.setPower(1.0);
         RightArmMotor.setPower(1.0);
         LeftArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         RightArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        demoServo.setPosition(a);
-        Open();
         MaxStop();
+        demoServo.setPosition(1.0);
+        MaxStop();
+        if(caz==1){
+            Backward(33);
+        }
+        if(caz==2){
+            Backward(40);
+        }
+        if(caz==3){
+            Backward(36);
+        }
+        Stop();
+    }
+
+    private void Pas12(){
+        Open();
+    }
+
+    private void Pas13(){
+        Forward(15);
+        target=-40;
+        LeftArmMotor.setTargetPosition(target);
+        RightArmMotor.setTargetPosition(target);
+        LeftArmMotor.setPower(1.0);
+        RightArmMotor.setPower(1.0);
+        LeftArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        RightArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        demoServo.setPosition(b);
     }
 
     private void Pas14(){
@@ -480,7 +493,7 @@ public class AutoRedShort extends LinearOpMode {
         RightArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         demoServo.setPosition(a);
         Open();
-        sleep(250);
+        BigStop();
     }
 
     private void BratPozX () { //se duce cu bratul la poz x si lasa pixelul

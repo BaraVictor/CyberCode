@@ -316,18 +316,10 @@ public class AutoBlueShort extends LinearOpMode {
     }
 
     private void Pas3(){
-        if (caz==2 || caz==1) {
             demoServoLeft.setPosition(open2);
             sleep(100);
             Stop();
             demoServo.setPosition(1.0);
-        }
-        if(caz==3){
-            demoServoLeft.setPosition(open2);
-            sleep(100);
-            Stop();
-            demoServo.setPosition(1.0);
-        }
     }
 
     private void Pas4(){
@@ -373,7 +365,8 @@ public class AutoBlueShort extends LinearOpMode {
         }
         else{
             Forward(172);
-        }    }
+        }
+    }
 
     private void Pas8(){
         if(caz==1){
@@ -502,7 +495,7 @@ public class AutoBlueShort extends LinearOpMode {
         LeftArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         RightArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         demoServo.setPosition(a);
-        Close();
+        Open();
         BigStop();
     }
 
