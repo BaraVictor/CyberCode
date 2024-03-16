@@ -152,10 +152,10 @@ public class AutonomieShort extends LinearOpMode {
         Pas11();
         Pas12();
         Pas13();
-        Pas14();
-        Pas15();
-        Pas16();
-        Pas17();
+//        Pas14();
+//        Pas15();
+//        Pas16();
+//        Pas17();
         Pas18();
         camera.stopStreaming();
     }
@@ -352,7 +352,7 @@ public class AutonomieShort extends LinearOpMode {
 
     private void Pas9(){
         if(caz==3){
-            target=-700;
+            target=-730;
             LeftArmMotor.setTargetPosition(target);
             RightArmMotor.setTargetPosition(target);
             LeftArmMotor.setPower(1.0);
@@ -361,10 +361,10 @@ public class AutonomieShort extends LinearOpMode {
             RightArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             MaxStop();
             demoServo.setPosition(x);
-            Backward(40);
+            Backward(15);
         }
         if(caz==2){
-            target=-700;
+            target=-730;
             LeftArmMotor.setTargetPosition(target);
             RightArmMotor.setTargetPosition(target);
             LeftArmMotor.setPower(1.0);
@@ -373,10 +373,10 @@ public class AutonomieShort extends LinearOpMode {
             RightArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             Stop();
             demoServo.setPosition(x);
-            Backward(40);
+            Backward(30);
         }
         if(caz==1){
-            target=-700;
+            target=-730;
             LeftArmMotor.setTargetPosition(target);
             RightArmMotor.setTargetPosition(target);
             LeftArmMotor.setPower(1.0);
@@ -390,7 +390,15 @@ public class AutonomieShort extends LinearOpMode {
     }
 
     private void Pas10(){
-        turnLeft(90);
+        if(caz==3){
+            turnLeft(93);
+        }
+        if(caz==2){
+            turnLeft(89);
+        }
+        if(caz==1){
+            turnLeft(87);
+        }
     }
 
     private void Pas11(){

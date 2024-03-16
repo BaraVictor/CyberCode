@@ -48,10 +48,10 @@ public class AutoBlueLong extends LinearOpMode {
     private Servo demoServo;
     private Servo demoServoRight;
     private Servo demoServoLeft;
-    double open1 = 0.71;
-    double closed1 = 0.91;
-    double open2 = 0.75;
-    double closed2 = 0.51;
+    double open1 = 0.51;
+    double closed1 = 0.86 ;
+    double open2 = 0.95;
+    double closed2 = 0.54;
 
     double a = 0.66;
     double b = 1.0;
@@ -143,6 +143,7 @@ public class AutoBlueLong extends LinearOpMode {
         telemetry.update();
         Stop();
         Pas2(); //Merge in fata 64 de centimetri
+        camera.stopStreaming();
         // Metoda orifinala (17 sec)
         Pas3(); //Da obiectul din cale si se roteste(pt a aseza pixelul)
         Pas4(); //Lasal bratul jos(a) si lasa pixelul jos
@@ -168,7 +169,6 @@ public class AutoBlueLong extends LinearOpMode {
         Pas15();//Se roteste 90 pt a se parca cu spatele
         Pas16();//Merge cu spatele si se parcheza
         Pas17();//Lasa Bratul jos si ghiara in poz a
-        camera.stopStreaming();
     }
     private void resetAngle()
     {
@@ -303,8 +303,19 @@ public class AutoBlueLong extends LinearOpMode {
     }
 
     private void Pas2 (){
-        Stop();
-        Forward(61);
+        if(caz==1){
+            Stop();
+            Forward(58);
+        }
+        if(caz==2) {
+            Stop();
+            Forward(60);
+        }
+        if(caz==3){
+            Stop();
+            Forward(63);
+            demoServo.setPosition(0.8);
+        }
     }
 
     private void Pas3 () { //roteste pt caz
@@ -317,7 +328,7 @@ public class AutoBlueLong extends LinearOpMode {
             Stop();
         }
         else if(caz==3){
-            turnLeft(89);
+            turnLeft(97);
         }
     }
 
@@ -370,7 +381,7 @@ public class AutoBlueLong extends LinearOpMode {
 //            turnRight(90);
 //        }
         if(caz==2){
-            turnLeft(100);
+            turnLeft(96);
         }
     }
 
@@ -456,15 +467,15 @@ public class AutoBlueLong extends LinearOpMode {
     }
 
     private void Pas8 () {  //rotire paralel cu tabla >.<
-        if(caz==3) {
-            turnRight(90);
-        }
+//        if(caz==3) {
+//            turnRight(90);
+//        }
     }
 
     private void Pas9 () {  //aliniere caz tabla
-        if(caz==3){
-            Forward(25);
-        }
+//        if(caz==3){
+//            Forward(25);
+//        }
 
     }
 
@@ -476,7 +487,8 @@ public class AutoBlueLong extends LinearOpMode {
             setAllPower(0);
         }
         if(caz==3) {
-            turnLeft(90);
+            BigStop();
+            Backward(10);
         }
         Close();
     }
@@ -489,6 +501,7 @@ public class AutoBlueLong extends LinearOpMode {
     }
 
     private void Pas12 () {
+        Stop();
         Forward(15);
         target=-40;
         LeftArmMotor.setTargetPosition(target);

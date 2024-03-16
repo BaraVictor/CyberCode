@@ -24,7 +24,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
-@Autonomous(name="AutoTest", group="C")
+@Autonomous(name="AutoTest", group="E")
 //@Disabled
 public class AutoTest extends LinearOpMode
 {

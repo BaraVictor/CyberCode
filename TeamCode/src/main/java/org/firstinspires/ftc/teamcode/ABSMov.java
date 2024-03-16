@@ -17,8 +17,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
-@Autonomous(name="Boogie", group="A")
-public class Boogie extends LinearOpMode {
+@Autonomous(name="ABSMov", group="CD")
+public class ABSMov extends LinearOpMode {
     OpenCvCamera camera;
     public DcMotor encoderRight;
     public DcMotor encoderLeft;
@@ -48,10 +48,10 @@ public class Boogie extends LinearOpMode {
     private Servo demoServo;
     private Servo demoServoRight;
     private Servo demoServoLeft;
-    double open1 = 0.71;
-    double closed1 = 0.91;
-    double open2 = 0.75;
-    double closed2 = 0.51;
+    double open1 = 0.51;
+    double closed1 = 0.86 ;
+    double open2 = 0.95;
+    double closed2 = 0.54;
 
     double a = 0.66;
     double b = 1.0;
@@ -64,7 +64,7 @@ public class Boogie extends LinearOpMode {
                 .getResources().getIdentifier("cameraMonitorViewId",
                         "id", hardwareMap.appContext.getPackageName());
         camera = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class,"Webcam 1"), cameraMonitorViewId);
-        RedTeamProp detector = new RedTeamProp(telemetry);
+        BlueTeamProp detector = new BlueTeamProp(telemetry);
         camera.setPipeline(detector);
         camera.openCameraDevice();
         camera.startStreaming(640,480, OpenCvCameraRotation.UPRIGHT);
@@ -141,25 +141,25 @@ public class Boogie extends LinearOpMode {
             }
         }
         telemetry.update();
-        camera.stopStreaming();
         Pas1();
+        camera.stopStreaming();
         Pas2();
         Pas3();
-        Backward(10);
-//        Pas4();
-//        Pas5();
-//        Pas6();
-//        Pas7();
-//        Pas8();
+        Pas4();
+        Pas5();
+        Pas6();
+        Pas7();
+        Stop();
+        Pas8();
 //        Pas9();
 //        Pas10();
 //        Pas11();
 //        Pas12();
 //        Pas13();
-////        Pas14();
-////        Pas15();
-////        Pas16();
-////        Pas17();
+//        Pas14();
+//        Pas15();
+//        Pas16();
+//        Pas17();
         Pas18();
     }
     private void resetAngle()
@@ -282,7 +282,7 @@ public class Boogie extends LinearOpMode {
     }
     public void setAllPower(double p ){setMotorPower(p,p);}
 
-    private void Pas0 (){
+    private void Pas0(){
         target=-20;
         LeftArmMotor.setTargetPosition(target);
         RightArmMotor.setTargetPosition(target);
@@ -294,33 +294,34 @@ public class Boogie extends LinearOpMode {
         Close();
         Stop();
     }
+
     private void Pas1 (){
         Forward(61);
     }
 
     private void Pas2 () { //roteste pt caz
-        if(caz==3){
-            turnLeft(60);
+        if(caz==1){
+            turnRight(55);
         }
         else if(caz==2){
-            Forward(20);
+            Forward(17);
             Stop();
             Backward(10);
         }
-        else if(caz==1){
-            turnRight(70);
+        else if(caz==3){
+            turnLeft(80);
         }
     }
 
     private void Pas3(){
-        if (caz==2 || caz==3) {
-            demoServoRight.setPosition(open1);
+        if (caz==2 || caz==1) {
+            demoServoLeft.setPosition(open2);
             sleep(100);
             Stop();
             demoServo.setPosition(1.0);
         }
-        if(caz==1){
-            demoServoRight.setPosition(open1);
+        if(caz==3){
+            demoServoLeft.setPosition(open2);
             sleep(100);
             Stop();
             demoServo.setPosition(1.0);
@@ -328,140 +329,141 @@ public class Boogie extends LinearOpMode {
     }
 
     private void Pas4(){
-        if(caz==3){
-            turnRight(90);
+        if(caz==1){
+            turnLeft(90);
         }
         else if(caz==2){
-            turnRight(90);
-            Forward(25);
-            turnLeft(91);
+            Stop();
         }
-        else if(caz==1){
-            turnLeft(90);
+        else if(caz==3){
+            turnRight(90);
         }
     }
 
     private void Pas5(){
-        Forward(61);
+        if(caz==1) {
+            Backward(50);
+        }
+        if(caz==2){
+            Backward(47);
+        }
+        if(caz==3) {
+            Backward(60);
+            Stop();
+        }
     }
 
     private void Pas6(){
-        if(caz==1){
-            turnRight(90);
+        if(caz==1 || caz==2){
+            turnRight(91);
         }
-        else {
-            turnRight(94);
+        if(caz==3){
+            turnRight(90);
         }
     }
 
     private void Pas7(){
-        if(caz==3){
-            Backward(172);
-        }
-        if(caz==2){
-            Backward(195);
-        }
-        if(caz==1){
-            Backward(160);
-        }
+            Forward(125);
     }
 
     private void Pas8(){
         turnLeft(90);
+        Stop();
+        turnLeft(88);
+        Stop();
+        Backward(120);
     }
 
     private void Pas9(){
         if(caz==1){
-            target=-700;
-            LeftArmMotor.setTargetPosition(target);
-            RightArmMotor.setTargetPosition(target);
-            LeftArmMotor.setPower(1.0);
-            RightArmMotor.setPower(1.0);
-            LeftArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            RightArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            MaxStop();
-            demoServo.setPosition(x);
-            Backward(45);
+//            target=-700;
+//            LeftArmMotor.setTargetPosition(target);
+//            RightArmMotor.setTargetPosition(target);
+//            LeftArmMotor.setPower(1.0);
+//            RightArmMotor.setPower(1.0);
+//            LeftArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//            RightArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//            MaxStop();
+//            demoServo.setPosition(x);
+            Forward(47);
         }
         if(caz==2){
-            target=-700;
-            LeftArmMotor.setTargetPosition(target);
-            RightArmMotor.setTargetPosition(target);
-            LeftArmMotor.setPower(1.0);
-            RightArmMotor.setPower(1.0);
-            LeftArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            RightArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            Stop();
-            demoServo.setPosition(x);
-            Backward(45);
+//            target=-700;
+//            LeftArmMotor.setTargetPosition(target);
+//            RightArmMotor.setTargetPosition(target);
+//            LeftArmMotor.setPower(1.0);
+//            RightArmMotor.setPower(1.0);
+//            LeftArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//            RightArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//            Stop();
+//            demoServo.setPosition(x);
+            Forward(43);
         }
         if(caz==3){
-            target=-700;
-            LeftArmMotor.setTargetPosition(target);
-            RightArmMotor.setTargetPosition(target);
-            LeftArmMotor.setPower(1.0);
-            RightArmMotor.setPower(1.0);
-            LeftArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            RightArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-            Stop();
-            demoServo.setPosition(x);
-            Backward(45);
+//            target=-700;
+//            LeftArmMotor.setTargetPosition(target);
+//            RightArmMotor.setTargetPosition(target);
+//            LeftArmMotor.setPower(1.0);
+//            RightArmMotor.setPower(1.0);
+//            LeftArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//            RightArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+//            Stop();
+//            demoServo.setPosition(x);
+            Forward(18);
         }
     }
 
     private void Pas10(){
-        if(caz==1) {
-            turnRight(92);
+        if(caz==3){
+            turnRight(94);
         }
         if(caz==2){
-            turnRight(90);
-        }
-        if(caz==3){
-            turnRight(87);
+            turnRight(105);
         }
     }
 
     private void Pas11(){
-        if(caz==2){
-            Backward(24);
-            Stop();
-        }
-        else{
-            Backward(37);
-            Stop();
-        }
-    }
-
-    private void Pas12(){
-        Open();
-        Stop();
-    }
-
-    private void Pas13(){
-        Forward(8);
-        Stop();
-        target=0;
+        target=-670;
         LeftArmMotor.setTargetPosition(target);
         RightArmMotor.setTargetPosition(target);
         LeftArmMotor.setPower(1.0);
         RightArmMotor.setPower(1.0);
         LeftArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         RightArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        demoServo.setPosition(a);
-        Open();
         MaxStop();
+        demoServo.setPosition(1.0);
+        MaxStop();
+        Backward(28);
+        Stop();
+    }
+
+    private void Pas12(){
+        Open();
+    }
+
+    private void Pas13(){
+        Forward(15);
+        target=-40;
+        LeftArmMotor.setTargetPosition(target);
+        RightArmMotor.setTargetPosition(target);
+        LeftArmMotor.setPower(1.0);
+        RightArmMotor.setPower(1.0);
+        LeftArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        RightArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        demoServo.setPosition(b);
+        Close();
     }
 
     private void Pas14(){
-        turnLeft(90);
+        turnRight(90);
     }
 
     private void Pas15(){
-        Forward(42);
+        Forward(48);
     }
 
     private void Pas16(){
-        turnRight(90);
+        turnLeft(90);
     }
 
     private void Pas17(){
@@ -469,6 +471,7 @@ public class Boogie extends LinearOpMode {
     }
 
     private void Pas18() {
+        demoServo.setPosition(a);
         target=0;
         LeftArmMotor.setTargetPosition(target);
         RightArmMotor.setTargetPosition(target);
@@ -476,9 +479,11 @@ public class Boogie extends LinearOpMode {
         RightArmMotor.setPower(1.0);
         LeftArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         RightArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        demoServo.setPosition(a);
+        Stop();
         Open();
-        sleep(250);
+        Stop();
+        demoServo.setPosition(b);
+        MaxStop();
     }
 
     private void BratPozX () { //se duce cu bratul la poz x si lasa pixelul
