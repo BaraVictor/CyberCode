@@ -142,7 +142,6 @@ public class AutoRedLong extends LinearOpMode {
         }
         telemetry.update();
         Pas2(); //Merge in fata 64 de centimetri
-        camera.stopStreaming();
         // Metoda orifinala (17 sec)
         Pas3(); //Da obiectul din cale si se roteste(pt a aseza pixelul)
         Pas4(); //Lasal bratul jos(a) si lasa pixelul jos

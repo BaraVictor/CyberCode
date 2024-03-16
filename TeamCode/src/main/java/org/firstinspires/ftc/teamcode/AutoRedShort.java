@@ -142,7 +142,6 @@ public class AutoRedShort extends LinearOpMode {
         }
         telemetry.update();
         Pas1();
-        camera.stopStreaming();
         Pas2();
         Pas3();
         Pas4();

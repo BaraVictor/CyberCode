@@ -121,7 +121,6 @@ public class AutoBlueLong extends LinearOpMode {
         pidDrive.enable();
 
         waitForStart();
-
         Pas1();
         MaxStop();
         switch (detector.getLocation()) {
@@ -144,7 +143,6 @@ public class AutoBlueLong extends LinearOpMode {
         telemetry.update();
         Stop();
         Pas2(); //Merge in fata 64 de centimetri
-        camera.stopStreaming();
         // Metoda orifinala (17 sec)
         Pas3(); //Da obiectul din cale si se roteste(pt a aseza pixelul)
         Pas4(); //Lasal bratul jos(a) si lasa pixelul jos
@@ -171,7 +169,6 @@ public class AutoBlueLong extends LinearOpMode {
         Pas16();//Merge cu spatele si se parcheza
         Pas17();//Lasa Bratul jos si ghiara in poz a
         camera.stopStreaming();
-
     }
     private void resetAngle()
     {
@@ -611,7 +608,7 @@ public class AutoBlueLong extends LinearOpMode {
 
     private void BigStop() {
         setAllPower(0);
-        sleep(1000);
+        sleep(850);
     }
 
     private void MaxStop() {
