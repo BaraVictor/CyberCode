@@ -54,8 +54,10 @@ public class RedTeamProp extends OpenCvPipeline {
 
         telemetry.addData("Left raw value", (int) Core.sumElems(left).val[0]);
         telemetry.addData("Right raw value", (int) Core.sumElems(right).val[0]);
+        telemetry.addData("Mid raw value", (int) Core.sumElems(right).val[0]);
         telemetry.addData("Left percentage", Math.round(leftValue * 100) + "%");
         telemetry.addData("Right percentage", Math.round(rightValue * 100) + "%");
+        telemetry.addData("Mid percentage", Math.round(midValue * 100) + "%");
 
         boolean stoneLeft = leftValue > PERCENT_COLOR_THRESHOLD;
         boolean stoneRight = rightValue > PERCENT_COLOR_THRESHOLD;
