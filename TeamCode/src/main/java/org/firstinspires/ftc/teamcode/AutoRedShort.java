@@ -301,7 +301,7 @@ public class AutoRedShort extends LinearOpMode {
 
     private void Pas2 () { //roteste pt caz
         if(caz==3){
-            turnLeft(60);
+            turnLeft(55);
         }
         else if(caz==2){
             Forward(17);
@@ -309,7 +309,7 @@ public class AutoRedShort extends LinearOpMode {
             Backward(10);
         }
         else if(caz==1){
-            turnRight(70);
+            turnRight(60);
         }
     }
 
@@ -322,12 +322,12 @@ public class AutoRedShort extends LinearOpMode {
 
     private void Pas4(){
         if(caz==3){
-            turnRight(92);
+            turnRight(87);
         }
         else if(caz==2){
-            turnRight(85);
+            turnRight(91);
             Forward(20);
-            turnLeft(93);
+            turnLeft(90);
         }
         else if(caz==1){
             turnLeft(93);
@@ -337,7 +337,7 @@ public class AutoRedShort extends LinearOpMode {
     private void Pas5(){
         if(caz==2)
         {
-            Forward(67);
+            Forward(60);
         }
         else{
             Forward(62);
@@ -346,13 +346,13 @@ public class AutoRedShort extends LinearOpMode {
 
     private void Pas6(){
         if(caz==1){
-            turnLeft(104);
+            turnLeft(90);
         }
         if(caz==2){
-            turnLeft(93);
+            turnLeft(94);
         }
         if(caz==3){
-            turnLeft(92);
+            turnLeft(89);
         }
     }
 
@@ -400,7 +400,7 @@ public class AutoRedShort extends LinearOpMode {
 //            RightArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 //            Stop();
 //            demoServo.setPosition(x);
-            Forward(42);
+            Forward(55);
         }
         if(caz==3){
 //            target=-700;
@@ -412,7 +412,7 @@ public class AutoRedShort extends LinearOpMode {
 //            RightArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 //            Stop();
 //            demoServo.setPosition(x);
-            Forward(58);
+            Forward(69);
         }
     }
 
@@ -421,7 +421,7 @@ public class AutoRedShort extends LinearOpMode {
             turnLeft(101);
         }
         if(caz==2){
-            turnLeft(102);
+            turnLeft(94);
         }
         if(caz==3){
             turnLeft(89);
@@ -443,7 +443,7 @@ public class AutoRedShort extends LinearOpMode {
             Backward(33);
         }
         if(caz==2){
-            Backward(40);
+            Backward(37);
         }
         if(caz==3){
             Backward(36);
