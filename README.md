@@ -1,9 +1,26 @@
-## NOTICE
+# CyberCode Repository
 
-This repository contains the public FTC SDK for the CENTERSTAGE (2023-2024) competition season.
+Welcome to **CyberCode**, the official repository for the **OCTOPUS PRIME** robot. This robot was developed by **Team 23161-CyberLIS76** for the **2023-2024 FIRST Tech Challenge (CenterStage)** season.
 
-## Welcome!
-This GitHub repository contains the source code that is used to build an Android app to control a *FIRST* Tech Challenge competition robot.  To use this SDK, download/clone the entire project to your local computer.
+## OCTOPUS PRIME Robot
+OCTOPUS PRIME is the result of our team's dedication and innovation, designed to tackle the complex challenges of the CenterStage competition. We’ve implemented cutting-edge technology and optimized algorithms to ensure high performance.
+
+## Contributors
+This project was a team effort, built by:
+
+- **Victor Bâra**
+- **Marco Mihalcea**
+- **Alex Holban**
+- **Iulia Filimon**
+- **Mircea Geana**
+
+## About the Code
+The code in this repository is structured to support the functionality and control of OCTOPUS PRIME, including:
+
+- **Autonomous Navigation**
+- **TeleOp Control**
+- **Sensor Integration**
+- **Actuator and Motor Control**
 
 ## Requirements
 To use this Android Studio project, you will need Android Studio 2021.2 (codename Chipmunk) or later.
